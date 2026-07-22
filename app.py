@@ -4,7 +4,7 @@ Point d'entrée de l'application Streamlit — Suivi de production.
 Ce fichier ne contient aucune logique métier : il assemble uniquement
 les modules de data / ui / visualizations et gère la navigation.
 """
-
+from auth import check_password
 import streamlit as st
 
 from config.settings import AUTOREFRESH_INTERVAL_MS
@@ -20,6 +20,10 @@ st.set_page_config(
 
 
 def main() -> None:
+
+    if not check_password():
+        return
+
     st.title("🔧 Suivi de production — Vannes")
 
     # Rafraîchissement automatique périodique (optionnel, nécessite streamlit-autorefresh)
