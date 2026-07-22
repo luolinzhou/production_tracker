@@ -216,3 +216,9 @@ __marimo__/
 
 # Streamlit
 .streamlit/secrets.toml
+
+# Google API credentials
+credentials.json
+
+# Mac
+.DS_Store
