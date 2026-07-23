@@ -36,10 +36,31 @@ def clean_order_dataframe(df: pd.DataFrame) -> pd.DataFrame:
 
 
 def compute_step_totals(df: pd.DataFrame) -> pd.Series:
-    """Retourne le nombre total de vannes ayant atteint chaque étape."""
+    """
+    Retourne le nombre de vannes présentes dans chaque étape de production,
+    ainsi que les vannes encore en attente.
+    """
     if df.empty:
-        return pd.Series({step: 0 for step in PRODUCTION_STEPS})
-    return df[PRODUCTION_STEPS].sum()
+        return pd.Series(
+            {
+                "En attente": 0,
+                **{step: 0 for step in PRODUCTION_STEPS},
+            }
+        )
+
+    step_totals = df[PRODUCTION_STEPS].sum()
+
+    pending = (
+        df[QTY_COLUMN]
+        - df[PRODUCTION_STEPS].sum(axis=1)
+    ).clip(lower=0).sum()
+
+    return pd.Series(
+        {
+            "En attente": int(pending),
+            **step_totals.to_dict(),
+        }
+    )
 
 def compute_kpis(df: pd.DataFrame) -> dict:
     """

@@ -46,6 +46,7 @@ STEP_COLORS = {
     "Test": "#C44E52",
     "Emballage": "#8172B2",
     "Expédition": "#37A794",
+    "En attente": "#808080",
 }
 
 # Durée du cache (secondes) avant re-fetch automatique des données Google Sheets

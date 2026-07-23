@@ -9,6 +9,7 @@ from __future__ import annotations
 import streamlit as st
 
 from data.sheets_client import load_order_dataframe
+
 from data.processing import (
     clean_order_dataframe,
     compute_step_totals,
@@ -63,6 +64,7 @@ def render_order_view(order_name: str) -> None:
 
     # --- Graphiques ---
     step_totals = compute_step_totals(filtered_df)
+
     col1, col2 = st.columns(2)
     with col1:
         st.plotly_chart(build_step_bar_chart(step_totals), use_container_width=True)

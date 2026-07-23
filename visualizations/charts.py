@@ -14,7 +14,7 @@ from config.settings import PRODUCTION_STEPS, STEP_COLORS
 
 def build_step_bar_chart(step_totals: pd.Series) -> go.Figure:
     """Diagramme en barres du nombre de vannes par étape."""
-    steps = [s for s in PRODUCTION_STEPS if s in step_totals.index]
+    steps = step_totals.index.tolist()
     values = [step_totals[s] for s in steps]
     colors = [STEP_COLORS.get(s, "#999999") for s in steps]
 
@@ -33,7 +33,7 @@ def build_step_bar_chart(step_totals: pd.Series) -> go.Figure:
 
 def build_step_pie_chart(step_totals: pd.Series) -> go.Figure:
     """Camembert de répartition des vannes par étape."""
-    steps = [s for s in PRODUCTION_STEPS if s in step_totals.index]
+    steps = step_totals.index.tolist()
     values = [step_totals[s] for s in steps]
     colors = [STEP_COLORS.get(s, "#999999") for s in steps]
 
