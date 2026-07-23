@@ -14,7 +14,7 @@ from ui.overview import render_overview
 
 st.set_page_config(
     page_title="Suivi de production - Vannes",
-    page_icon="🔧",
+    page_icon="🏭",
     layout="wide",
 )
 
@@ -24,7 +24,7 @@ def main() -> None:
     if not check_password():
         return
 
-    st.title("🔧 Suivi de production — Vannes")
+    st.title("🏭 Suivi de production — Vannes")
 
     # Rafraîchissement automatique périodique (optionnel, nécessite streamlit-autorefresh)
     try:
