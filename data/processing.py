@@ -41,15 +41,6 @@ def compute_step_totals(df: pd.DataFrame) -> pd.Series:
         return pd.Series({step: 0 for step in PRODUCTION_STEPS})
     return df[PRODUCTION_STEPS].sum()
 
-
-def compute_pivot_type_step(df: pd.DataFrame) -> pd.DataFrame:
-    """Tableau croisé : type de vanne (lignes) x étape (colonnes)."""
-    if df.empty:
-        return pd.DataFrame(columns=PRODUCTION_STEPS)
-    pivot = df.groupby("Type")[PRODUCTION_STEPS].sum()
-    return pivot
-
-
 def compute_kpis(df: pd.DataFrame) -> dict:
     """
     Calcule les indicateurs clés d'une commande :
