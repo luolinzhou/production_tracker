@@ -53,9 +53,9 @@ def compute_pivot_type_step(df: pd.DataFrame) -> pd.DataFrame:
 def compute_kpis(df: pd.DataFrame) -> dict:
     """
     Calcule les indicateurs clés d'une commande :
-    total commandé, total expédié, taux d'avancement global.
-    Le taux d'avancement global est la moyenne d'avancement
-    pondérée par la quantité totale de chaque item, sur la
+    total commandé, total expédié, taux d'avancement par commande.
+    Le taux d'avancement par commande est la moyenne d'avancement
+    pondérée par la quantité de chaque item de la commande, sur la
     dernière étape du process (Expédition étant l'aboutissement).
     """
     if df.empty:
@@ -69,10 +69,12 @@ def compute_kpis(df: pd.DataFrame) -> dict:
     last_step = PRODUCTION_STEPS[-1]
     total_shipped = int(df[last_step].sum())
 
-    # Avancement global = moyenne de toutes les étapes / (nb_étapes * qty totale)
-    total_possible = total_qty * len(PRODUCTION_STEPS)
-    total_achieved = int(df[PRODUCTION_STEPS].sum().sum())
-    progress_rate = (total_achieved / total_possible * 100) if total_possible else 0.0
+    # Avancement commande = nombre de vannes expédiées / nombre total de vannes
+    progress_rate = (
+        total_shipped / total_qty * 100
+        if total_qty
+        else 0.0
+    )
 
     return {
         "total_qty": total_qty,

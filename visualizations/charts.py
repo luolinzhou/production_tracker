@@ -42,16 +42,3 @@ def build_step_pie_chart(step_totals: pd.Series) -> go.Figure:
     )
     fig.update_layout(title="Part de chaque étape", margin=dict(t=50, b=20))
     return fig
-
-
-def build_pivot_heatmap(pivot_df: pd.DataFrame) -> go.Figure:
-    """Heatmap du tableau croisé type de vanne x étape."""
-    fig = px.imshow(
-        pivot_df,
-        text_auto=True,
-        color_continuous_scale="Blues",
-        aspect="auto",
-        labels=dict(x="Étape", y="Type de vanne", color="Quantité"),
-    )
-    fig.update_layout(title="Avancement par type de vanne", margin=dict(t=50, b=20))
-    return fig

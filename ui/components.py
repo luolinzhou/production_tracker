@@ -11,13 +11,12 @@ import streamlit as st
 from config.settings import PRODUCTION_STEPS, STEP_COLORS
 
 
-def render_kpis(kpis: dict, last_update: str) -> None:
+def render_kpis(kpis: dict) -> None:
     """Affiche la ligne de KPI principaux en haut de page."""
-    col1, col2, col3, col4 = st.columns(4)
+    col1, col2, col3 = st.columns(3)
     col1.metric("Vannes commandées", kpis["total_qty"])
     col2.metric("Vannes expédiées", kpis["total_shipped"])
-    col3.metric("Avancement global", f"{kpis['progress_rate']} %")
-    col4.metric("Dernière mise à jour", last_update)
+    col3.metric("Avancement de la commande", f"{kpis['progress_rate']} %")
 
 
 def render_progress_bar(label: str, done: int, total: int) -> None:
@@ -56,14 +55,6 @@ def render_step_summary_table(step_totals: pd.Series) -> None:
     """Tableau récapitulatif du nombre total de vannes à chaque étape."""
     summary_df = step_totals.rename("Nombre de vannes").to_frame()
     st.dataframe(summary_df, use_container_width=True)
-
-
-def render_pivot_table(pivot_df: pd.DataFrame) -> None:
-    """Tableau croisé type de vanne x étape."""
-    st.dataframe(
-        pivot_df.style.background_gradient(cmap="Blues", vmin=0),
-        use_container_width=True,
-    )
 
 
 def step_color(step: str) -> str:

@@ -25,9 +25,9 @@ FIXED_COLUMNS = [
 # L'ordre de cette liste détermine l'ordre d'affichage partout dans l'app.
 PRODUCTION_STEPS = [
     "Montage",
+    "Test",
     "Grenaillage",
     "Peinture",
-    "Test",
     "Emballage",
     "Expédition",
 ]
