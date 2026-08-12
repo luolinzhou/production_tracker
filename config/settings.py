@@ -35,7 +35,7 @@ PRODUCTION_STEPS = [
 
 STEP_DESCRIPTIONS = {
     "En attente": (
-        "Vannes pas encore arrivées ou pièces insuffisantes pour permettre le montage."
+        "Vannes dont les pièces ne sont pas encore arrivées ou pièces insuffisantes pour permettre le montage."
     ),
     "Montage": (
         "Vannes en cours de montage ou dont toutes les pièces nécessaires "

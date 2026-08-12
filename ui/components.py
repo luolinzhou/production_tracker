@@ -13,7 +13,7 @@ from config.settings import PRODUCTION_STEPS, STEP_COLORS, STEP_DESCRIPTIONS
 def render_process_explanation() -> None:
     """Affiche la signification des différentes étapes de production."""
 
-    with st.expander("ℹ️ Comprendre les étapes de production"):
+    with st.expander("ℹ️ Description des étapes de production"):
         for step in PRODUCTION_STEPS:
             description = STEP_DESCRIPTIONS.get(step, "")
             st.markdown(f"**{step}** — {description}")
