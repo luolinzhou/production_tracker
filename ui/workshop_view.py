@@ -30,7 +30,7 @@ WORKSHOP_STEPS = [
 def render_workshop_view() -> None:
     """Affiche la situation actuelle de toutes les vannes dans l'atelier."""
 
-    st.header("🏭 Situation actuelle dans l'atelier")
+    st.header("Situation actuelle dans l'atelier")
 
     order_names = list_order_names()
 
