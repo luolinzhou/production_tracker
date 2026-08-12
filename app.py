@@ -11,6 +11,7 @@ from config.settings import AUTOREFRESH_INTERVAL_MS
 from data.sheets_client import list_order_names, clear_cache
 from ui.order_view import render_order_view
 from ui.overview import render_overview
+from ui.workshop_view import render_workshop_view
 
 st.set_page_config(
     page_title="Suivi de production - Vannes",
@@ -36,7 +37,14 @@ def main() -> None:
 
     with st.sidebar:
         st.header("Navigation")
-        view_mode = st.radio("Vue", ["Commande détaillée", "Vue globale"])
+        view_mode = st.radio(
+            "Vue", 
+            [
+                "Situation atelier",
+                "Commande détaillée", 
+                "Vue globale",
+            ]
+        )
 
         if st.button("🔄 Forcer le rechargement des données"):
             clear_cache()
@@ -44,6 +52,10 @@ def main() -> None:
 
     if view_mode == "Vue globale":
         render_overview()
+        return
+
+    if view_mode == "Situation atelier":
+        render_workshop_view()
         return
 
     order_names = list_order_names()
