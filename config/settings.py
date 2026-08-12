@@ -24,6 +24,7 @@ FIXED_COLUMNS = [
 # Étapes de production, dans l'ordre du process.
 # L'ordre de cette liste détermine l'ordre d'affichage partout dans l'app.
 PRODUCTION_STEPS = [
+    "En attente",
     "Montage",
     "Test",
     "Grenaillage",
@@ -31,6 +32,31 @@ PRODUCTION_STEPS = [
     "Emballage",
     "Expédition",
 ]
+
+STEP_DESCRIPTIONS = {
+    "En attente": (
+        "Vannes pas encore arrivées ou pièces insuffisantes pour permettre le montage."
+    ),
+    "Montage": (
+        "Vannes en cours de montage ou dont toutes les pièces nécessaires "
+        "sont disponibles et prêtes à être montées."
+    ),
+    "Test": (
+        "Vannes actuellement en cours de test."
+    ),
+    "Grenaillage": (
+        "Vannes actuellement en cours de grenaillage."
+    ),
+    "Peinture": (
+        "Vannes actuellement en cours de peinture."
+    ),
+    "Emballage": (
+        "Vannes terminées et actuellement en cours d'emballage."
+    ),
+    "Expédition": (
+        "Vannes terminées, emballées et sorties de l'atelier."
+    ),
+}
 
 # Colonne libre de commentaire (optionnelle, pas utilisée dans les calculs)
 REMARK_COLUMN = "Remarque"

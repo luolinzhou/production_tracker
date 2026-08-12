@@ -17,6 +17,7 @@ from data.processing import (
     filter_dataframe,
 )
 from ui.components import (
+    render_process_explanation,
     render_kpis,
     render_order_progress,
     render_step_progress_bars,
@@ -32,6 +33,8 @@ from visualizations.charts import (
 def render_order_view(order_name: str) -> None:
     """Charge et affiche l'intégralité du détail d'une commande donnée."""
     st.subheader(f"Commande : {order_name}")
+
+    render_process_explanation()
 
     raw_df = load_order_dataframe(order_name)
     df = clean_order_dataframe(raw_df)

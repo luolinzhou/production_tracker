@@ -8,8 +8,15 @@ from __future__ import annotations
 import pandas as pd
 import streamlit as st
 
-from config.settings import PRODUCTION_STEPS, STEP_COLORS
+from config.settings import PRODUCTION_STEPS, STEP_COLORS, STEP_DESCRIPTIONS
 
+def render_process_explanation() -> None:
+    """Affiche la signification des différentes étapes de production."""
+
+    with st.expander("ℹ️ Comprendre les étapes de production"):
+        for step in PRODUCTION_STEPS:
+            description = STEP_DESCRIPTIONS.get(step, "")
+            st.markdown(f"**{step}** — {description}")
 
 def render_kpis(kpis: dict) -> None:
     """Affiche la ligne de KPI principaux en haut de page."""
