@@ -35,7 +35,7 @@ def render_order_view(order_name: str) -> None:
     st.subheader(f"Commande : {order_name}")
 
     last_update = get_last_update()
-    st.caption(f"Dernière mise à jour des données : {last_update}")
+    st.caption(f"Dernière mise à jour des données (heure française) : {last_update}")
 
     render_process_explanation()
 

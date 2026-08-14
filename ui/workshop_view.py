@@ -39,7 +39,7 @@ def render_workshop_view() -> None:
     st.header("Situation actuelle dans l'atelier")
 
     last_update = get_last_update()
-    st.caption(f"Dernière mise à jour des données : {last_update}")
+    st.caption(f"Dernière mise à jour des données (heure française) : {last_update}")
 
     render_process_explanation()
 

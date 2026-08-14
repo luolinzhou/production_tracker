@@ -24,7 +24,7 @@ def render_overview() -> None:
 
     # Date de dernière modification détectée dans le Google Sheets
     last_update = get_last_update()
-    st.caption(f"Dernière mise à jour des données : {last_update}")
+    st.caption(f"Dernière mise à jour des données (heure française) : {last_update}")
 
     rows = []
     for name in order_names:
