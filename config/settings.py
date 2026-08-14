@@ -11,6 +11,9 @@ GOOGLE_SHEET_NAME = "Production_tracker"
 # Chemin vers le fichier de credentials du compte de service Google
 GOOGLE_CREDENTIALS_PATH = "credentials.json"
 
+# Ficher affichant date de maj des données
+CONFIG_SHEET_NAME = "Config"
+
 # Colonnes techniques fixes (informations produit, non liées à l'avancement)
 FIXED_COLUMNS = [
     "Item",
@@ -80,3 +83,5 @@ CACHE_TTL_SECONDS = 60
 
 # Intervalle de rafraîchissement automatique de la page (millisecondes)
 AUTOREFRESH_INTERVAL_MS = 60_000
+
+CONFIG_SHEET_NAME = "Config"

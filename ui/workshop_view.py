@@ -20,7 +20,7 @@ import streamlit as st
 
 from config.settings import PRODUCTION_STEPS
 from data.processing import clean_order_dataframe
-from data.sheets_client import list_order_names, load_order_dataframe
+from data.sheets_client import list_order_names, load_order_dataframe, get_last_update
 from ui.components import render_process_explanation
 
 
@@ -37,6 +37,9 @@ def render_workshop_view() -> None:
     """Affiche la situation actuelle des vannes présentes dans l'atelier."""
 
     st.header("Situation actuelle dans l'atelier")
+
+    last_update = get_last_update()
+    st.caption(f"Dernière mise à jour des données : {last_update}")
 
     render_process_explanation()
 

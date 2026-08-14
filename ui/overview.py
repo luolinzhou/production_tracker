@@ -9,24 +9,29 @@ from __future__ import annotations
 import pandas as pd
 import streamlit as st
 
-from data.sheets_client import list_order_names, load_order_dataframe
+from data.sheets_client import list_order_names, load_order_dataframe, get_last_update
 from data.processing import clean_order_dataframe, compute_kpis
 from ui.components import render_progress_bar
 
 
 def render_overview() -> None:
-    """Affiche un récapitulatif d'avancement pour chaque commande détectée."""
+    """Affiche un récapitulatif d'avancement pour chaque commande."""
     order_names = list_order_names()
 
     if not order_names:
         st.info("Aucune commande détectée dans le Google Sheets.")
         return
 
+    # Date de dernière modification détectée dans le Google Sheets
+    last_update = get_last_update()
+    st.caption(f"Dernière mise à jour des données : {last_update}")
+
     rows = []
     for name in order_names:
         raw_df = load_order_dataframe(name)
         df = clean_order_dataframe(raw_df)
         kpis = compute_kpis(df)
+
         rows.append(
             {
                 "Commande": name,
@@ -36,11 +41,19 @@ def render_overview() -> None:
             }
         )
 
-    overview_df = pd.DataFrame(rows).sort_values("Avancement (%)", ascending=True)
+    overview_df = pd.DataFrame(rows).sort_values(
+        "Avancement (%)",
+        ascending=True,
+    )
 
     st.dataframe(overview_df, use_container_width=True)
 
     st.divider()
     st.subheader("Avancement par commande")
+
     for _, row in overview_df.iterrows():
-        render_progress_bar(row["Commande"], row["Expédié"], row["Qté totale"])
+        render_progress_bar(
+            row["Commande"],
+            row["Expédié"],
+            row["Qté totale"],
+        )

@@ -8,7 +8,7 @@ from __future__ import annotations
 
 import streamlit as st
 
-from data.sheets_client import load_order_dataframe
+from data.sheets_client import load_order_dataframe, get_last_update
 
 from data.processing import (
     clean_order_dataframe,
@@ -33,6 +33,9 @@ from visualizations.charts import (
 def render_order_view(order_name: str) -> None:
     """Charge et affiche l'intégralité du détail d'une commande donnée."""
     st.subheader(f"Commande : {order_name}")
+
+    last_update = get_last_update()
+    st.caption(f"Dernière mise à jour des données : {last_update}")
 
     render_process_explanation()
 
