@@ -37,29 +37,46 @@ def clean_order_dataframe(df: pd.DataFrame) -> pd.DataFrame:
 
 def compute_step_totals(df: pd.DataFrame) -> pd.Series:
     """
-    Retourne le nombre de vannes présentes dans chaque étape de production,
-    ainsi que les vannes encore en attente.
+    Calcule le nombre de vannes à chaque étape.
+
+    'En attente' n'existe pas dans le Google Sheet :
+    elle est calculée comme la quantité totale moins les vannes
+    déjà présentes dans toutes les autres étapes.
+
+    L'ordre retourné est :
+    En attente → Montage → Test → Grenaillage → Peinture
+    → Emballage → Expédition
     """
+
     if df.empty:
         return pd.Series(
-            {
-                "En attente": 0,
-                **{step: 0 for step in PRODUCTION_STEPS},
-            }
+            0,
+            index=PRODUCTION_STEPS,
+            dtype=int,
         )
 
-    step_totals = df[PRODUCTION_STEPS].sum()
+    total_qty = int(df[QTY_COLUMN].sum())
 
-    pending = (
-        df[QTY_COLUMN]
-        - df[PRODUCTION_STEPS].sum(axis=1)
-    ).clip(lower=0).sum()
+    step_totals = {}
 
-    return pd.Series(
-        {
-            "En attente": int(pending),
-            **step_totals.to_dict(),
-        }
+    # Calcul des étapes réellement présentes dans le Sheet
+    for step in PRODUCTION_STEPS:
+        if step == "En attente":
+            continue
+
+        step_totals[step] = int(df[step].sum())
+
+    # Tout ce qui n'est encore dans aucune étape est "En attente"
+    total_in_steps = sum(step_totals.values())
+
+    step_totals["En attente"] = max(
+        total_qty - total_in_steps,
+        0,
+    )
+
+    return pd.Series(step_totals).reindex(
+        PRODUCTION_STEPS,
+        fill_value=0,
     )
 
 def compute_kpis(df: pd.DataFrame) -> dict:
