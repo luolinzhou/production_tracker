@@ -8,7 +8,7 @@ from __future__ import annotations
 import pandas as pd
 import streamlit as st
 
-from config.settings import PRODUCTION_STEPS, STEP_COLORS, STEP_DESCRIPTIONS
+from config.settings import PRODUCTION_STEPS, STEP_COLORS, STEP_DESCRIPTIONS, QTY_COLUMN
 
 def render_process_explanation() -> None:
     """Affiche la signification des différentes étapes de production."""
@@ -50,9 +50,39 @@ def render_step_progress_bars(step_totals: pd.Series, total_qty: int) -> None:
 
 def render_detail_table(df: pd.DataFrame) -> None:
     """Tableau détaillé de tous les items de la commande, avec mise en forme couleur."""
+
+    df = df.copy()
+
+    # "En attente" n'existe pas dans le Google Sheet.
+    # On la calcule ici pour chaque item.
+    steps_without_pending = [
+        step for step in PRODUCTION_STEPS
+        if step != "En attente"
+    ]
+
+    df["En attente"] = (
+        df[QTY_COLUMN]
+        - df[steps_without_pending].sum(axis=1)
+    ).clip(lower=0)
+
+    # Remet En attente en première position
+    columns = df.columns.tolist()
+    columns.remove("En attente")
+
+    pending_position = columns.index(QTY_COLUMN) + 1
+
+    columns.insert(pending_position, "En attente")
+
+    df = df[columns]
+
+    # Mise en forme
+    style_steps = PRODUCTION_STEPS
+
     st.dataframe(
         df.style.background_gradient(
-            subset=PRODUCTION_STEPS, cmap="Greens", vmin=0
+            subset=style_steps,
+            cmap="Greens",
+            vmin=0,
         ),
         use_container_width=True,
     )
