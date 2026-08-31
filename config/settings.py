@@ -17,6 +17,7 @@ CONFIG_SHEET_NAME = "Config"
 # Colonnes techniques fixes (informations produit, non liées à l'avancement)
 FIXED_COLUMNS = [
     "Item",
+    "JCFC Job Number",
     "Type",
     "DN",
     "Class",

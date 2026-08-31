@@ -76,6 +76,7 @@ def render_workshop_view() -> None:
                     {
                         "Commande": order_name,
                         "Item": row.get("Item", ""),
+                        "JCFC Job Number": row.get("JCFC Job Number", ""),
                         "Type": row.get("Type", ""),
                         "DN": row.get("DN", ""),
                         "Class": row.get("Class", ""),
@@ -176,6 +177,7 @@ def render_workshop_view() -> None:
     display_columns = [
         "Commande",
         "Item",
+        "JCFC Job Number",
         "Type",
         "DN",
         "Class",
