@@ -80,7 +80,7 @@ STEP_COLORS = {
 }
 
 # Durée du cache (secondes) avant re-fetch automatique des données Google Sheets
-CACHE_TTL_SECONDS = 60
+CACHE_TTL_SECONDS = 120
 
 # Intervalle de rafraîchissement automatique de la page (millisecondes)
 AUTOREFRESH_INTERVAL_MS = 60_000

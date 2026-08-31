@@ -73,7 +73,7 @@ def list_order_names() -> list[str]:
     ]
 
 
-@st.cache_data(ttl=5, show_spinner=False)
+@st.cache_data(ttl=60, show_spinner=False)
 def get_last_update() -> str:
     """Retourne la date de dernière modification enregistrée dans Config!A2."""
     spreadsheet = get_spreadsheet()
